@@ -32,7 +32,7 @@ CREATE TABLE departments(
 );
 
 INSERT INTO departments (department_name, over_head_costs)
-VALUES ("Furniture","20000"),
-("Electronics","10000"),
-("Musical Instrument","8000"),
-("Apparel","5000");
+VALUES ("Furniture","2000"),
+("Electronics","1000"),
+("Musical Instrument","800"),
+("Apparel","500");

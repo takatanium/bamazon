@@ -52,13 +52,13 @@ let displayDepts = function () {
           colWidths: [5, 25, 15, 15, 15]
         });
         for (let i = 0; i < res1.length; i++) {
+          let sum = res2[i].sum === null ? 0.00 : res2[i].sum;
           table.push([
             res1[i].department_id,
             res2[i].dept,
             res1[i].over_head_costs,
-            res2[i].sum === null ? 0.00 : res2[i].sum,
-            res2[i].sum === null ? 0.00 : res2[i].sum -
-              res1[i].over_head_costs
+            sum,
+            sum - res1[i].over_head_costs
           ]);
         }
         console.log(table.toString());

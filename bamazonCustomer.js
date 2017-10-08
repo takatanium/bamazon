@@ -46,7 +46,6 @@ let purchaseItem = function (id, quant) {
             if (err) throw err;
             console.log(`TOTAL COST: $${totalCost}`);
             connection.end();
-            query();
           }
         );
       }
