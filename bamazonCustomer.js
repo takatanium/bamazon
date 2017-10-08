@@ -37,14 +37,16 @@ let purchaseItem = function (id, quant) {
         connection.end();
       } else {
         let inventory = res[0].stock_quantity - parseInt(quant);
-        let price = res[0].price;
+        let totalCost = res[0].price * parseInt(quant);
         connection.query(
-          `UPDATE products SET stock_quantity=${inventory}
+          `UPDATE products 
+          SET stock_quantity=${inventory}, product_sales=product_sales+${totalCost}
           WHERE item_id=${id}`,
           function (err, res) {
             if (err) throw err;
-            console.log(`TOTAL COST: $${parseFloat(price) * quant}`);
+            console.log(`TOTAL COST: $${totalCost}`);
             connection.end();
+            query();
           }
         );
       }
