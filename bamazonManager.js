@@ -11,10 +11,12 @@ let connection = mysql.createConnection({
 });
 
 let queryManager = function () {
-  let managerChoices = ['View Products for Sale', 
-                        'View Low Inventory', 
-                        'Add to Inventory', 
-                        'Add New Product'];
+  let managerChoices = [
+    'View Products for Sale',
+    'View Low Inventory',
+    'Add to Inventory',
+    'Add New Product'
+  ];
   inquirer.prompt([
     {
       type: 'list',
@@ -22,23 +24,23 @@ let queryManager = function () {
       name: 'choice',
       message: 'What do you want to do?'
     }
-  ]).then(function(ans) {
-  	connection.connect(function(err) {
-    	if (err) throw err;
+  ]).then(function (ans) {
+    connection.connect(function (err) {
+      if (err) throw err;
       switch (ans.choice) {
         case 'View Low Inventory': displayInventory(5); break;
         case 'Add to Inventory': addInventory(); break;
         case 'Add New Product': newInventory(); break;
         default: displayInventory('none'); break;
       }
-  	});
+    });
   });
 };
 
 let displayInventory = function (limit) {
   let limitString = '';
   if (limit !== 'none') limitString = ` WHERE stock_quantity<=${limit}`;
-  connection.query(`SELECT * FROM products${limitString}`, function(err, res) {
+  connection.query(`SELECT * FROM products${limitString}`, function (err, res) {
     if (err) throw err;
     let table = new Table({
       head: ['ID', 'PRODUCT', 'PRICE', 'QUANTITY'],
@@ -61,18 +63,18 @@ let addInventory = function () {
       name: 'quantity',
       message: 'How many units to add?'
     }
-  ]).then(function(ans) {
+  ]).then(function (ans) {
     connection.query(
-      `UPDATE products 
+      `UPDATE products
       SET stock_quantity=stock_quantity+${ans.quantity}
-      WHERE item_id=${ans.id}`, 
+      WHERE item_id=${ans.id}`,
       function (err, res) {
         if (err) throw err;
         displayInventory('none');
       }
     );
   });
-}
+};
 
 let newInventory = function () {
   inquirer.prompt([
@@ -89,7 +91,7 @@ let newInventory = function () {
       name: 'quantity',
       message: 'How much units to add?'
     }
-  ]).then(function(ans) {
+  ]).then(function (ans) {
     connection.query(
       'INSERT INTO products SET ?',
       {
@@ -104,6 +106,6 @@ let newInventory = function () {
       }
     );
   });
-}
+};
 
 queryManager();
