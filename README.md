@@ -57,6 +57,15 @@ See [bamazonManager Demo](http://recordit.co/sr8AdODeqy) for a video demonstrati
 node bamazonSupervisor.js
 ```
 
+#### Queries supervisor of task
+
+1. **View Sales by Department**
+	* Displays Department Sales with Total Profit by Department
+2. **Create New Department**
+	* Allows supervisor to create a new department
+
+See [bamazonSupervisor Demo](http://recordit.co/6PmxLL0cCe) for a video demonstration. 
+
 ## Built With
 
 * [node.js](https://nodejs.org/en/) - Node Server
