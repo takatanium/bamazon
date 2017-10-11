@@ -12,21 +12,21 @@ let connection = mysql.createConnection({
 
 let querySupervisor = function () {
   let supervisorChoices = [
-    'View Products for Sales by Department',
-    'Create New Department'
+    `View Sales by Department`,
+    `Create New Department`
   ];
   inquirer.prompt([
     {
       type: 'list',
       choices: supervisorChoices,
       name: 'choice',
-      message: 'What do you want to do?'
+      message: `What do you want to do?`
     }
   ]).then(function (ans) {
     connection.connect(function (err) {
       if (err) throw err;
       switch (ans.choice) {
-        case 'Create New Department': createDept(); break;
+        case `Create New Department`: createDept(); break;
         default: displayDepts(); break;
       }
     });
@@ -46,7 +46,6 @@ let displayDepts = function () {
       ORDER BY departments.department_id`,
       function (err, res2) {
         if (err) throw err;
-        console.log(res2);
         let table = new Table({
           head: ['ID', 'DEPARTMENT', 'OVERHEAD', 'SALES', 'TOTAL PROFIT'],
           colWidths: [5, 25, 15, 15, 15]
@@ -56,9 +55,9 @@ let displayDepts = function () {
           table.push([
             res1[i].department_id,
             res2[i].dept,
-            res1[i].over_head_costs,
-            sum,
-            sum - res1[i].over_head_costs
+            res1[i].over_head_costs.toFixed(2),
+            sum.toFixed(2),
+            (sum - res1[i].over_head_costs).toFixed(2)
           ]);
         }
         console.log(table.toString());
@@ -72,23 +71,28 @@ let createDept = function () {
   inquirer.prompt([
     {
       name: 'name',
-      message: 'Create what department?'
+      message: `Create what department?`
     }, {
       name: 'overhead',
-      message: 'What is the overhead cost?'
+      message: `What is the overhead cost?`
     }
   ]).then(function (ans) {
-    connection.query(
-      'INSERT INTO departments SET ?',
-      {
-        department_name: ans.name,
-        over_head_costs: parseFloat(ans.overhead)
-      },
-      function (err, res) {
-        if (err) throw err;
-        displayDepts();
-      }
-    );
+    if (ans.name.trim().length === 0 || ans.overhead.trim().length === 0) {
+      console.log(`Fields cannot be blank.`);
+      displayDepts();
+    } else {
+      connection.query(
+        `INSERT INTO departments SET ?`,
+        {
+          department_name: ans.name,
+          over_head_costs: Math.abs(parseFloat(ans.overhead))
+        },
+        function (err, res) {
+          if (err) throw err;
+          displayDepts();
+        }
+      );
+    }
   });
 };
 

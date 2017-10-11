@@ -26,10 +26,10 @@ let queryCust = function () {
       inquirer.prompt([
         {
           name: 'id',
-          message: 'ID of item to purchase?'
+          message: `ID of item to purchase?`
         }, {
           name: 'quant',
-          message: 'Quantity to purchase?'
+          message: `Quantity to purchase?`
         }
       ]).then(function (ans) {
         purchaseItem(ans.id, ans.quant);
@@ -45,7 +45,7 @@ let purchaseItem = function (id, quant) {
     function (err, res) {
       if (err) throw err;
       if (parseInt(quant) > res[0].stock_quantity) {
-        console.log('Insufficient quantities!');
+        console.log(`Insufficient quantities!`);
         connection.end();
       } else {
         let inventory = res[0].stock_quantity - parseInt(quant);
