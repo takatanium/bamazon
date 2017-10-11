@@ -26,6 +26,12 @@ npm install
 node bamazonCustomer.js
 ```
 
+1. Displays truncated inventory table
+2. Queries customer what to buy via ID and how many units.
+3. Displays how much money spent.
+
+See [bamazonCustomer Demo](http://recordit.co/CK4pRysGB3) for a video demonstration. 
+
 ### Manager Interface
 
 ```
