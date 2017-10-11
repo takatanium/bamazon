@@ -38,6 +38,19 @@ See [bamazonCustomer Demo](http://recordit.co/CK4pRysGB3) for a video demonstrat
 node bamazonManager.js
 ```
 
+#### Queries manager of task
+
+1. **View Products for Sale**
+	* Displays inventory table
+2. **View Low Inventory**
+	* Displays items in inventory where quantity is less than 6
+3. **Add to Inventory**
+	* Allows manager to add quantity to inventory
+4. **Add New Product**
+	* Allows manager to add a new product to inventory
+
+See [bamazonManager Demo](http://recordit.co/sr8AdODeqy) for a video demonstration. 
+
 ### Supervisor Interface
 
 ```
