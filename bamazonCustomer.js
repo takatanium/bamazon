@@ -26,10 +26,12 @@ let queryCust = function () {
       inquirer.prompt([
         {
           name: 'id',
-          message: `ID of item to purchase?`
+          message: `ID of item to purchase?`,
+          validate: (val) => !isNaN(parseInt(val))
         }, {
           name: 'quant',
-          message: `Quantity to purchase?`
+          message: `Quantity to purchase?`,
+          validate: (val) => !isNaN(parseInt(val))
         }
       ]).then(function (ans) {
         purchaseItem(ans.id, ans.quant);

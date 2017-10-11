@@ -74,7 +74,8 @@ let createDept = function () {
       message: `Create what department?`
     }, {
       name: 'overhead',
-      message: `What is the overhead cost?`
+      message: `What is the overhead cost?`,
+      validate: (val) => !isNaN(parseFloat(val))
     }
   ]).then(function (ans) {
     if (ans.name.trim().length === 0 || ans.overhead.trim().length === 0) {

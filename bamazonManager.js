@@ -61,10 +61,12 @@ let addInventory = function () {
   inquirer.prompt([
     {
       name: 'id',
-      message: `Add inventory to which item id?`
+      message: `Add inventory to which item id?`,
+      validate: (val) => !isNaN(parseInt(val))
     }, {
       name: 'quantity',
-      message: `How many units to add?`
+      message: `How many units to add?`,
+      validate: (val) => !isNaN(parseInt(val))
     }
   ]).then(function (ans) {
     if (ans.id.trim().length === 0 || 
@@ -95,10 +97,12 @@ let newInventory = function () {
       message: `What department?`
     }, {
       name: 'price',
-      message: `How much does it cost?`
+      message: `How much does it cost?`,
+      validate: (val) => !isNaN(parseFloat(val))
     }, {
       name: 'quantity',
-      message: `How much units to add?`
+      message: `How much units to add?`,
+      validate: (val) => !isNaN(parseInt(val))
     }
   ]).then(function (ans) {
     if (ans.name.trim().length === 0 || 
