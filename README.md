@@ -11,12 +11,18 @@ A CLI based Amazon-like storefront with the MySQL and Node.js. The app will take
 
 ### Installing
 
-1. Create Database, see example schema in bamazon.sql
-2. Install node dependencies
-
+1. Install node dependencies
 ```
 npm install
 ```
+
+2. Create Database, see example schema in bamazon.sql
+	* Create bamazon database
+	* Run bamazon.sql to create tables
+```
+npm run mysql
+```
+	* Edit package.json as necessary for user
 
 ## Running the App
 
