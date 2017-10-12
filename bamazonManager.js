@@ -91,10 +91,12 @@ let newInventory = function () {
   inquirer.prompt([
     {
       name: 'name',
-      message: `What is product name?`
+      message: `What is product name?`,
+      validate: (val) => val.trim().length !== 0
     }, {
       name: 'dept',
-      message: `What department?`
+      message: `What department?`,
+      validate: (val) => val.trim().length !== 0
     }, {
       name: 'price',
       message: `How much does it cost?`,
@@ -105,36 +107,28 @@ let newInventory = function () {
       validate: (val) => !isNaN(parseInt(val))
     }
   ]).then(function (ans) {
-    if (ans.name.trim().length === 0 || 
-        ans.dept.trim().length === 0 ||
-        ans.price.trim().length === 0) {
-      console.log(`Fields cannot be empty`);
-      displayInventory('none');
-    } else { 
-      connection.query(
-        `SELECT department_name FROM products`, 
-        function (err, res) {
-          if (res.findIndex(i => i.department_name === ans.dept.trim()) >= 0) {
-            connection.query(
-              `INSERT INTO products SET ?`,
-              {
-                product_name: ans.name,
-                department_name: ans.dept,
-                price: parseFloat(ans.price),
-                stock_quantity: parseInt(ans.quantity)
-              },
-              function (err, res) {
-                if (err) throw err;
-                displayInventory('none');
-              }
-            );
-          } else {
-            console.log(`Department ${ans.dept} does not exist.`);
-            displayInventory('none');
-          }
+    connection.query(`SELECT department_name FROM products`, 
+      function (err, res) {
+        if (err) throw err;
+        if (res.findIndex(i => i.department_name === ans.dept.trim()) >= 0) {
+          connection.query(`INSERT INTO products SET ?`,
+            {
+              product_name: ans.name,
+              department_name: ans.dept,
+              price: parseFloat(ans.price),
+              stock_quantity: parseInt(ans.quantity)
+            },
+            function (err, res) {
+              if (err) throw err;
+              displayInventory('none');
+            }
+          );
+        } else {
+          console.log(`Department ${ans.dept} does not exist.`);
+          displayInventory('none');
         }
-      );
-    }
+      }
+    );
   });
 };
 

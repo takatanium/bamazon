@@ -71,29 +71,24 @@ let createDept = function () {
   inquirer.prompt([
     {
       name: 'name',
-      message: `Create what department?`
+      message: `Create what department?`,
+      validate: (val) => val.trim().length !== 0
     }, {
       name: 'overhead',
       message: `What is the overhead cost?`,
       validate: (val) => !isNaN(parseFloat(val))
     }
   ]).then(function (ans) {
-    if (ans.name.trim().length === 0 || ans.overhead.trim().length === 0) {
-      console.log(`Fields cannot be blank.`);
-      displayDepts();
-    } else {
-      connection.query(
-        `INSERT INTO departments SET ?`,
-        {
-          department_name: ans.name,
-          over_head_costs: Math.abs(parseFloat(ans.overhead))
-        },
-        function (err, res) {
-          if (err) throw err;
-          displayDepts();
-        }
-      );
-    }
+    connection.query(`INSERT INTO departments SET ?`,
+      {
+        department_name: ans.name,
+        over_head_costs: Math.abs(parseFloat(ans.overhead))
+      },
+      function (err, res) {
+        if (err) throw err;
+        displayDepts();
+      }
+    );
   });
 };
 
