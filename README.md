@@ -19,10 +19,11 @@ npm install
 2. Create Database, see example schema in bamazon.sql
 	* Create bamazon database
 	* Run bamazon.sql to create tables
+	* Edit package.json as necessary for user
 ```
 npm run mysql
 ```
-	* Edit package.json as necessary for user
+
 
 ## Running the App
 
