@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "mysql -u root -p[''] bamazon < bamazon.sql"
+    "mysql": "mysql -uroot -p bamazon < bamazon.sql"
   },
   "repository": {
     "type": "git",
